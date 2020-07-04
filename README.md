@@ -3,7 +3,6 @@
 
 ## File Structure
 
-`
 ┣ api/
 ┃ ┗ routes/
 ┃ ┃ ┣ orders.js
@@ -14,4 +13,3 @@
 ┣ package.json
 ┣ README.md
 ┗ server.js
-`
