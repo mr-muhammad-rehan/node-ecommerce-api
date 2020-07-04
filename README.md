@@ -2,7 +2,7 @@
   This is basic API for CRUD operations on Products and Orders
 
 ## File Structure
-
+```
 ┣ api/
 ┃ ┗ routes/
 ┃ ┃ ┣ orders.js
@@ -13,3 +13,4 @@
 ┣ package.json
 ┣ README.md
 ┗ server.js
+```
