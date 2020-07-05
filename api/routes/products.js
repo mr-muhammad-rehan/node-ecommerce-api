@@ -7,10 +7,16 @@ const Product = require('../models/products');
 
 
 router.get('/', (req, res, next) => {
-
-    res.status(200).json({
-        message: 'Handling Products Requests'
-    })
+    Product.find()
+        .exec()
+        .then((docs) => {
+            console.log(docs);
+            res.status(200).json(docs);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err });
+        })
 });
 
 
@@ -43,10 +49,10 @@ router.get('/:productId', (req, res, next) => {
         .exec()
         .then(doc => {
             console.log(doc);
-            if(doc){
+            if (doc) {
                 res.status(200).json(doc);
-            }else{
-                res.status(401).json({message: 'No valid entry found for given ID'});
+            } else {
+                res.status(401).json({ message: 'No valid entry found for given ID' });
             }
         })
         .catch(err => {
@@ -57,18 +63,32 @@ router.get('/:productId', (req, res, next) => {
 
 router.patch('/:productId', (req, res, next) => {
     const id = req.params.productId;
-    res.status(200).json({
-        message: "Update Responce to Id",
-        id: id
-    })
+    const updateOps = {}
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
+    Product.update({ _id: id }, { $set: updateOps })
+        .exec()
+        .then((result) => {
+            console.log(result);
+            res.status(200).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 router.delete('/:productId', (req, res, next) => {
     const id = req.params.productId;
-    res.status(200).json({
-        message: "Update Responce to Id",
-        id: id
-    })
+    Product.remove({ _id: id })
+        .exec()
+        .then((result) => {
+            res.status(200).json(result);
+        })
+        .catch((err) => {
+            res.status(500).json(err);
+        });
 });
 
 
