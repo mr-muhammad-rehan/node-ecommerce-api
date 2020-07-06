@@ -8,10 +8,23 @@ const Product = require('../models/products');
 
 router.get('/', (req, res, next) => {
     Product.find()
+        .select('name price _id')
         .exec()
         .then((docs) => {
-            console.log(docs);
-            res.status(200).json(docs);
+            const response = {
+                count: docs.length,
+                products: docs.map((doc)=>{
+                    return {
+                        name: doc.name,
+                        price: doc.price,
+                        request:{
+                            type: 'GET',
+                            url: 'http://localhost:3000/products/'+doc.id
+                        }
+                    }
+                })
+            }
+            res.status(200).json(response);
         })
         .catch((err) => {
             console.log(err);
@@ -28,11 +41,13 @@ router.post('/', (req, res, next) => {
         price: req.body.price
     });
     product.save()
-        .then((result) => {
-            console.log(result);
+        .then((result) => { 
             res.status(201).json({
-                message: 'Product Created',
-                createdProduct: product
+                message: 'Product created successfully',
+                createdProduct: {
+                    type: 'GET',
+                    url: 'http://localhost:3000/products/'+result.id
+                }
             });
         })
         .catch((err) => {
@@ -46,6 +61,7 @@ router.post('/', (req, res, next) => {
 router.get('/:productId', (req, res, next) => {
     const id = req.params.productId;
     Product.findById(id)
+        .select('name price _id')
         .exec()
         .then(doc => {
             console.log(doc);
