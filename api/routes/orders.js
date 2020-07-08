@@ -84,14 +84,16 @@ route.get('/:orderId', (req, res, next) => {
                 res.status(404).json({
                     message: "Order Not Found"
                 });
+            } else {
+                res.status(200).json({
+                    order: order,
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:3000/orders/'
+                    }
+                });
             }
-            res.status(200).json({
-                order: order,
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:3000/orders/'
-                }
-            });
+
         })
         .catch((err) => {
             res.status(500).json(err);
