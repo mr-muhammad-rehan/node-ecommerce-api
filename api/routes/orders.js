@@ -8,6 +8,7 @@ const Product = require('../models/products');
 route.get('/', (req, res, next) => {
     Order.find()
         .select('product quantity _id')
+        .populate('product', 'name')
         .exec()
         .then((orders) => {
             const response = {
@@ -15,7 +16,7 @@ route.get('/', (req, res, next) => {
                 orders: orders.map((doc) => {
                     return {
                         _id: doc._id,
-                        product: doc.productId,
+                        product: doc.product,
                         quantity: doc.quantity,
                         request: {
                             type: 'GET',

@@ -5,15 +5,16 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 
+
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
 app.use(morgen('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use('/uploads', express.static('uploads'));
 
 //Mongo
-
 mongoose.connect('mongodb+srv://admin:' + process.env.MONGO_ATLAS_PW + '@node-ecom-cluster.jmrtf.mongodb.net/' + process.env.MONGO_DB_NAME + '?retryWrites=true&w=majority',
     {
         useNewUrlParser: true,
