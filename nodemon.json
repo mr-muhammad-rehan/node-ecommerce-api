@@ -1,8 +1,0 @@
-
-{
-  "env":{
-    "MONGO_ATLAS_PW": "rehan_123",
-    "MONGO_DB_NAME": "node-ecom-cluster",
-    "JWT_KEY": "secrete"
-  }
-}
