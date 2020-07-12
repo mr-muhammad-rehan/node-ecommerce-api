@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'));
 
 //Mongo
-mongoose.connect('mongodb+srv://admin:' + 'Your_Password' + '@node-ecom-cluster.jmrtf.mongodb.net/node-ecom-cluster?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://admin:' + 'rehan_123' + '@node-ecom-cluster.jmrtf.mongodb.net/node-ecom-cluster?retryWrites=true&w=majority',
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
